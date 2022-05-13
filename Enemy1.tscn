@@ -44,9 +44,7 @@ visible = false
 position = Vector2( -20, 7.00007 )
 shape = SubResource( 3 )
 
-[node name="HitBox" type="Area2D" parent="." groups=[
-"enemy_damager",
-]]
+[node name="HitBox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 34, 6.99988 )
