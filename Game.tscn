@@ -61,10 +61,10 @@ resource_local_to_scene = true
 3/shapes = [  ]
 3/z_index = 0
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=3]
 radius = 150.387
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 size = 120
 outline_size = 7
 outline_color = Color( 0, 0, 0, 1 )
@@ -114,7 +114,7 @@ position = Vector2( 2533.83, -13.6784 )
 [node name="EnemySpawnPoint1" type="Area2D" parent="Spawn_enemy/spawn"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn_enemy/spawn/EnemySpawnPoint1"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="spawn2" type="Position2D" parent="Spawn_enemy"]
 position = Vector2( 1552.99, -8.51608 )
@@ -122,7 +122,7 @@ position = Vector2( 1552.99, -8.51608 )
 [node name="EnemyspawnPoint2" type="Area2D" parent="Spawn_enemy/spawn2"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn_enemy/spawn2/EnemyspawnPoint2"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="spawn3" type="Position2D" parent="Spawn_enemy"]
 position = Vector2( 716.695, -3.35372 )
@@ -130,7 +130,7 @@ position = Vector2( 716.695, -3.35372 )
 [node name="EnemyspawnPoint3" type="Area2D" parent="Spawn_enemy/spawn3"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn_enemy/spawn3/EnemyspawnPoint3"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="spawn4" type="Position2D" parent="Spawn_enemy"]
 position = Vector2( 3406.26, -8.51608 )
@@ -138,7 +138,7 @@ position = Vector2( 3406.26, -8.51608 )
 [node name="EnemyspawnPoint4" type="Area2D" parent="Spawn_enemy/spawn4"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn_enemy/spawn4/EnemyspawnPoint4"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 4 )
@@ -165,7 +165,7 @@ margin_left = -0.079422
 margin_top = -318.576
 margin_right = -0.0793457
 margin_bottom = -225.576
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 6
 custom_constants/shadow_offset_y = 6
@@ -181,14 +181,12 @@ __meta__ = {
 wait_time = 2.0
 
 [node name="OleadaLabel" type="Label" parent="Game_UI"]
-visible = false
-margin_left = 488.485
-margin_top = 8.26761
-margin_right = 1291.48
-margin_bottom = 197.268
+margin_left = 303.0
+margin_top = 8.0
+margin_right = 1292.0
+margin_bottom = 202.0
 custom_fonts/font = ExtResource( 8 )
-text = "
-Oleada "
+text = "Ready?"
 align = 1
 valign = 1
 __meta__ = {
@@ -200,7 +198,7 @@ wait_time = 2.428
 one_shot = true
 
 [node name="Timer_descanso_oleadas" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 9.032
 one_shot = true
 [connection signal="area_entered" from="Spawn_enemy/spawn/EnemySpawnPoint1" to="." method="_on_EnemySpawnPoint1_area_entered"]
 [connection signal="area_exited" from="Spawn_enemy/spawn/EnemySpawnPoint1" to="." method="_on_EnemySpawnPoint1_area_exited"]

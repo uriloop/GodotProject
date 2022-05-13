@@ -84,9 +84,15 @@ func _process(delta):
 				if num_enemigos_vivos == 0 and lista_enemigos_oleada.size() == 0 and pausa_oleada==false:
 						print("La oleada se ha terminado. Iniciamos pausa oleada")
 						pausa_oleada=true
+									
 						$Timer_descanso_oleadas.start()
-			
-
+						rpc("descanso")
+						
+						
+sync func descanso():
+	oleada_label.text="Descanso!"
+	oleada_label.visible=true	
+		
 # Cuando el usuario esta hosteando la partida se llama a esta función para que establezca las posiciones de spawn
 func setup_players_positions() -> void:
 	for player in Persistent_nodes.get_children():
