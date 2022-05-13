@@ -37,10 +37,10 @@ func _physics_process(delta):
 		if get_tree().is_network_server():
 			rpc("destroy")
 
-	if playerWhoHit != null and can_be_damaged:
-		playerWhoHit.rpc("hit_by_damager",damage)
-		can_be_damaged = false
-		damage_timer.start()
+#	if playerWhoHit != null and can_be_damaged:
+#		playerWhoHit.rpc("hit_by_damager",damage)
+#		can_be_damaged = false
+#		damage_timer.start()
 
 remote func actualizar_posicion(pos):
 	global_position=pos
@@ -74,13 +74,13 @@ sync func hit_by_damager(damage):
 
 sync func destroy() -> void:
 	Persistent_nodes.get_node(self.name).queue_free()
-
-func _on_HitBox_area_entered(area):
-	if get_tree().is_network_server():
-		if area.get_parent().is_in_group("Player"):
-			playerWhoHit = area.get_parent()
-			#area.get_parent().rpc("hit_by_damager",damage)
-
-
-func _on_DamageTimer_timeout():
-	can_be_damaged = true
+#
+#func _on_HitBox_area_entered(area):
+#	if get_tree().is_network_server():
+#		if area.get_parent().is_in_group("Player"):
+#			playerWhoHit = area.get_parent()
+#			#area.get_parent().rpc("hit_by_damager",damage)
+#
+#
+#func _on_DamageTimer_timeout():
+#	can_be_damaged = true
