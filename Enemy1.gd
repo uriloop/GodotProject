@@ -11,9 +11,9 @@ var facing=0
 var dir
 var hp = 100
 var damage = 10
-var can_shot = true
+var can_be_damaged = true
 var playerWhoHit = null
-onready var reload_timer = $ReloadTimer
+onready var damage_timer = $damage_timer
 
 func _ready():
 	pass
@@ -37,10 +37,10 @@ func _physics_process(delta):
 		if get_tree().is_network_server():
 			rpc("destroy")
 
-	if playerWhoHit != null and can_shot:
+	if playerWhoHit != null and can_be_damaged:
 		playerWhoHit.rpc("hit_by_damager",damage)
-		can_shot = false
-		reload_timer.start()
+		can_be_damaged = false
+		damage_timer.start()
 
 remote func actualizar_posicion(pos):
 	global_position=pos
@@ -82,5 +82,5 @@ func _on_HitBox_area_entered(area):
 			#area.get_parent().rpc("hit_by_damager",damage)
 
 
-func _on_ReloadTimer_timeout():
-	can_shot = true
+func _on_DamageTimer_timeout():
+	can_be_damaged = true

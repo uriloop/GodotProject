@@ -17,7 +17,9 @@ radius = 52.0096
 radius = 29.9999
 height = 58.0003
 
-[node name="Enemy1" type="KinematicBody2D" groups=["Enemy"]]
+[node name="Enemy1" type="KinematicBody2D" groups=[
+"Enemy",
+]]
 rotation = 1.5708
 script = ExtResource( 1 )
 
@@ -48,10 +50,9 @@ shape = SubResource( 3 )
 position = Vector2( 34, 6.99988 )
 shape = SubResource( 4 )
 
-[node name="ReloadTimer" type="Timer" parent="."]
+[node name="damage_timer" type="Timer" parent="."]
 wait_time = 2.0
-
 [connection signal="area_entered" from="seekArea" to="." method="_on_seekArea_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
-[connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
+[connection signal="timeout" from="damage_timer" to="." method="_on_DamageTimer_timeout"]
