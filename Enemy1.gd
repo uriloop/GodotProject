@@ -39,6 +39,7 @@ remote func actualizar_posicion(pos):
 	global_position=pos
 
 
+
 sync func newPlayerSeeking(playerToSeek):
 	for child in Persistent_nodes.get_children():
 		if child.name == playerToSeek:
