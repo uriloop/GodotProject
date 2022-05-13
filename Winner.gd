@@ -12,4 +12,3 @@ func _on_Win_timer_timeout():
 
 sync func borrar(enemigo):
 	Persistent_nodes.get_node(enemigo).queue_free()
-	enemigo.queue_free()
