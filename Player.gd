@@ -8,6 +8,8 @@ var can_shoot = true
 var is_reloading = false
 var can_be_damaged=true
 
+var hitboxOverlaped = 0
+
 var player_bullet = load("res://Player_bullet.tscn")
 var username_text = load("res://Username_text.tscn")
 
@@ -193,6 +195,8 @@ func _on_Reload_timer_timeout():
 func _on_Hit_timer_timeout():
 	modulate = Color(1, 1, 1, 1)
 	can_be_damaged=true
+	if hitboxOverlaped > 0:
+		hit_by_damager()
 	
 
 # metodo conectado que se ejecuta cuando un area entra en el area del player
@@ -207,6 +211,7 @@ func _on_Hitbox_area_entered(area):
 			area.get_parent().rpc("destroy")
 		elif area.is_in_group("enemy_damager"):
 			rpc("hit_by_damager",area.get_parent().damage)
+			hitboxOverlaped+=1
 
 	
 		
@@ -265,3 +270,9 @@ func _exit_tree() -> void:
 			Global.player_master = null
 
 
+
+
+func _on_Hitbox_area_exited(area):
+	if get_tree().is_network_server():
+		if area.is_in_group("enemy_damager"):
+			hitboxOverlaped-=1

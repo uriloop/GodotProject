@@ -52,3 +52,4 @@ shape = SubResource( 1 )
 [connection signal="timeout" from="Reload_timer" to="." method="_on_Reload_timer_timeout"]
 [connection signal="timeout" from="Hit_timer" to="." method="_on_Hit_timer_timeout"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_Hitbox_area_exited"]

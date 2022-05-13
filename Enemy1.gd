@@ -42,6 +42,7 @@ func _physics_process(delta):
 #		can_be_damaged = false
 #		damage_timer.start()
 
+
 remote func actualizar_posicion(pos):
 	global_position=pos
 
