@@ -3,6 +3,7 @@ extends CanvasLayer
 onready var win_timer = $Control/Winner/Win_timer
 onready var winner = $Control/Winner
 
+
 func _ready() -> void:
 	# escondemos el mensaje de ganador
 	winner.hide()

@@ -7,6 +7,8 @@ var enemy_scene = preload("res://Enemy1.tscn")
 var current_spawn_location_instance_number = 1
 var current_player_for_spawn_location_number = null
 
+onready var oleada_label= $Game_UI/OleadaLabel
+onready var oleada_label_timer = $Game_UI/OleadaLabel/TimerLabelOleada
 
 ## OLEADAS
 var pausa_oleada = true
@@ -20,7 +22,7 @@ func _ready() -> void:
 	# conectamos el trigger para que ejecute la funcion player disconected cuando se desconecte un cliente
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 
-
+	
 	
 	
 	# Si el arbol de nodos actual tiene la conexión como servidor
@@ -124,7 +126,12 @@ func _on_Timer_descanso_oleadas_timeout():
 		numero_oleada+=1
 		pausa_oleada = false
 		generarOleada(numero_oleada)
+		rpc("show_oleada_label",numero_oleada)
 		
+sync func show_oleada_label(num_oleada):
+	oleada_label.text= "Oleada " + str(num_oleada)
+	oleada_label.visible = true
+	oleada_label_timer.start()
 
 func generarOleada(num_oleada):
 	for p in numPlayersInicials:
@@ -136,3 +143,9 @@ func generarOleada(num_oleada):
 			else:
 				lista_enemigos_oleada.append("enemy1")
 
+
+
+func _on_TimerLabelOleada_timeout():
+	oleada_label.visible = false
+	
+	

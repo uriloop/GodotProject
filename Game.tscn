@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Tilesheet.png" type="Texture" id=1]
 [ext_resource path="res://Game.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Winner.gd" type="Script" id=5]
 [ext_resource path="res://Down Hill.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Game_UI.gd" type="Script" id=7]
+[ext_resource path="res://title_font.tres" type="DynamicFont" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 128, 0, 128, 128, 0, 128 )
@@ -125,10 +126,10 @@ script = ExtResource( 7 )
 [node name="Control" type="Control" parent="Game_UI"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -36.3032
-margin_top = 698.837
-margin_right = -36.3032
-margin_bottom = 698.837
+margin_left = -0.166969
+margin_top = 12.2488
+margin_right = -0.166992
+margin_bottom = 12.2488
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -137,10 +138,10 @@ __meta__ = {
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -87.8387
-margin_top = -1108.41
-margin_right = -87.8386
-margin_bottom = -1015.41
+margin_left = -0.079422
+margin_top = -318.576
+margin_right = -0.0793457
+margin_bottom = -225.576
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 6
@@ -156,8 +157,28 @@ __meta__ = {
 [node name="Win_timer" type="Timer" parent="Game_UI/Control/Winner"]
 wait_time = 2.0
 
+[node name="OleadaLabel" type="Label" parent="Game_UI"]
+visible = false
+margin_left = 457.511
+margin_top = 8.26761
+margin_right = 1260.51
+margin_bottom = 197.268
+custom_fonts/font = ExtResource( 8 )
+text = "
+Oleada "
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimerLabelOleada" type="Timer" parent="Game_UI/OleadaLabel"]
+wait_time = 2.428
+one_shot = true
+
 [node name="Timer_descanso_oleadas" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 [connection signal="timeout" from="Game_UI/Control/Winner/Win_timer" to="Game_UI/Control/Winner" method="_on_Win_timer_timeout"]
+[connection signal="timeout" from="Game_UI/OleadaLabel/TimerLabelOleada" to="." method="_on_TimerLabelOleada_timeout"]
 [connection signal="timeout" from="Timer_descanso_oleadas" to="." method="_on_Timer_descanso_oleadas_timeout"]
