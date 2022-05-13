@@ -8,7 +8,8 @@ var speed = 200
 var velocity = Vector2()
 var playerSeeking = null
 var facing=0
-var dir
+var dir = 0
+var hp=20
 
 
 
@@ -51,3 +52,24 @@ func _on_seekArea_area_entered(area):
 			for child in Persistent_nodes.get_children():
 				if child.name == area.get_parent().name:
 					rpc('newPlayerSeeking', child.name)
+
+sync func damaged(dano):
+	hp-=dano
+	
+sync func destroy():
+	for i in Persistent_nodes.get_children():
+		if i.name == name:
+			i.queue_free()
+	queue_free()
+	
+	
+
+func _on_hurtAreaBody_area_entered(area):
+	if get_tree().is_network_server():
+		if area.is_in_group("Player_damager"):
+			if hp-area.get_parent().damage <=0:
+				rpc("destroy")
+			else:
+				rpc("damaged",area.get_parent().damage)
+			
+			area.get_parent().rpc("destroy")
