@@ -159,9 +159,9 @@ wait_time = 2.0
 
 [node name="OleadaLabel" type="Label" parent="Game_UI"]
 visible = false
-margin_left = 457.511
+margin_left = 488.485
 margin_top = 8.26761
-margin_right = 1260.51
+margin_right = 1291.48
 margin_bottom = 197.268
 custom_fonts/font = ExtResource( 8 )
 text = "
