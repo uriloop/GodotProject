@@ -17,6 +17,14 @@ var lista_enemigos_oleada = []
 var numPlayersInicials = 0
 var num_enemigos_vivos = 0
 
+## Spawn points overlaping
+	
+var EnemySpawnPoint1Overlaping = 0	
+var EnemySpawnPoint2Overlaping = 0	
+var EnemySpawnPoint3Overlaping = 0	
+var EnemySpawnPoint4Overlaping = 0
+	
+
 
 func _ready() -> void:
 	# conectamos el trigger para que ejecute la funcion player disconected cuando se desconecte un cliente
@@ -52,10 +60,23 @@ func _process(delta):
 					if lista_enemigos_oleada.size()>0:
 						for i in lista_enemigos_oleada:
 							var enemigo = i
-							rpc("instance_enemy1",get_tree().get_network_unique_id())
-							lista_enemigos_oleada.erase(i)
-							print("spawneamos un nuevo enemigo")
-							return
+							# comprovar que no esten obstaculizadas las posiciones de spawn
+							var spawn_points = $Spawn_enemy.get_children()
+							var free_spawn_points = spawn_points.size()
+							if EnemySpawnPoint1Overlaping>0:
+								free_spawn_points-=1
+							if EnemySpawnPoint2Overlaping>0:
+								free_spawn_points-=1
+							if EnemySpawnPoint3Overlaping>0:
+								free_spawn_points-=1
+							if EnemySpawnPoint4Overlaping>0:
+								free_spawn_points-=1
+							
+							if free_spawn_points>0:
+								rpc("instance_enemy1",get_tree().get_network_unique_id())
+								lista_enemigos_oleada.erase(i)
+								print("spawneamos un nuevo enemigo")
+								return # solo spawnea un enemigo por loop
 				if num_enemigos_vivos == 0 and lista_enemigos_oleada.size() == 0 and pausa_oleada==false:
 						print("La oleada se ha terminado. Iniciamos pausa oleada")
 						pausa_oleada=true
@@ -93,6 +114,7 @@ sync func instance_enemy1(id):
 	enemy1_instance.set_network_master(id)
 	Network.networked_object_name_index += 1
 	
+	
 
 # Cuando llega a 0 el timer que hemos creado para el spawn de enemigos
 # func _on_enemy_spawn_timer_timeout():
@@ -102,21 +124,22 @@ sync func instance_enemy1(id):
 #		rpc("instance_enemy1",get_tree().get_network_unique_id())
 
 
-# El random habria que hacerlo como el de el player en Network. De moento se queda así
+# El random habria que hacerlo como el de el player en Network. De momento se queda así
 var rng = RandomNumberGenerator.new()
 
 func random_spawn_enemy_position():
-	var randomPlace= rng.randi_range(1,4)
-
-	if (randomPlace==1):
-		return $Spawn_enemy/spawn.position
-	elif (randomPlace==2):
-		return $Spawn_enemy/spawn2.position
-	elif (randomPlace==3):
-		return $Spawn_enemy/spawn3.position
-	elif (randomPlace==4):
-		return $Spawn_enemy/spawn4.position
-
+	
+	while(true):
+		var randomPlace= rng.randi_range(1,4)
+		if (randomPlace==1 and EnemySpawnPoint1Overlaping==0):
+			return $Spawn_enemy/spawn.position
+		elif (randomPlace==2 and EnemySpawnPoint2Overlaping==0):
+			return $Spawn_enemy/spawn2.position
+		elif (randomPlace==3 and EnemySpawnPoint3Overlaping==0):
+			return $Spawn_enemy/spawn3.position
+		elif (randomPlace==4 and EnemySpawnPoint4Overlaping==0):
+			return $Spawn_enemy/spawn4.position
+		
 
 
 # OLEADAS
@@ -144,8 +167,53 @@ func generarOleada(num_oleada):
 				lista_enemigos_oleada.append("enemy1")
 
 
-
 func _on_TimerLabelOleada_timeout():
 	oleada_label.visible = false
+
+
+func _on_EnemySpawnPoint1_area_entered(area):
+	if get_tree().is_network_server():
+		EnemySpawnPoint1Overlaping +=1
 	
+
+
+func _on_EnemySpawnPoint1_area_exited(area):
+	if get_tree().is_network_server():
 	
+		EnemySpawnPoint1Overlaping -=1
+
+
+
+func _on_EnemyspawnPoint2_area_entered(area):
+	if get_tree().is_network_server():
+	
+		EnemySpawnPoint1Overlaping +=1
+
+func _on_EnemyspawnPoint2_area_exited(area):
+	if get_tree().is_network_server():
+	
+		EnemySpawnPoint1Overlaping -=1
+
+
+func _on_EnemyspawnPoint3_area_entered(area):
+	if get_tree().is_network_server():
+	
+		EnemySpawnPoint1Overlaping +=1
+
+
+func _on_EnemyspawnPoint3_area_exited(area):
+	if get_tree().is_network_server():
+	
+		EnemySpawnPoint1Overlaping -=1
+
+
+func _on_EnemyspawnPoint4_area_entered(area):
+	if get_tree().is_network_server():
+	
+		EnemySpawnPoint1Overlaping +=1
+
+
+func _on_EnemyspawnPoint4_area_exited(area):
+	if get_tree().is_network_server():
+	
+		EnemySpawnPoint1Overlaping -=1
