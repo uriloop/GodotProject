@@ -55,4 +55,5 @@ wait_time = 2.0
 [connection signal="area_entered" from="seekArea" to="." method="_on_seekArea_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
+[connection signal="area_exited" from="HitBox" to="." method="_on_HitBox_area_exited"]
 [connection signal="timeout" from="damage_timer" to="." method="_on_DamageTimer_timeout"]

@@ -84,3 +84,9 @@ func _on_HitBox_area_entered(area):
 
 func _on_DamageTimer_timeout():
 	can_be_damaged = true
+
+
+func _on_HitBox_area_exited(area):
+	playerWhoHit=null
+	damage_timer.stop()
+	
