@@ -6,6 +6,7 @@ var hp = 100 setget set_hp
 var velocity = Vector2(0, 0)
 var can_shoot = true
 var is_reloading = false
+var can_be_damaged=true
 
 var player_bullet = load("res://Player_bullet.tscn")
 var username_text = load("res://Username_text.tscn")
@@ -191,6 +192,8 @@ func _on_Reload_timer_timeout():
 
 func _on_Hit_timer_timeout():
 	modulate = Color(1, 1, 1, 1)
+	can_be_damaged=true
+	
 
 # metodo conectado que se ejecuta cuando un area entra en el area del player
 func _on_Hitbox_area_entered(area):
@@ -202,17 +205,23 @@ func _on_Hitbox_area_entered(area):
 			rpc("hit_by_damager", area.get_parent().damage)
 			# mandamos ejecutar la funcion remota destroy de la bala para que se destruya en todos los clientes
 			area.get_parent().rpc("destroy")
+		elif area.is_in_group("enemy_damager"):
+			rpc("hit_by_damager",area.get_parent().damage)
 
+	
+		
 
 # esta funcion se ejecutará cuando sea llamada remotamente
 sync func hit_by_damager(damage):
 	# le restamos al hp de este player el damage que corresponde al daño que recibe por parametro y se corresponde con la bala
 	hp -= damage
+	
 	# Hacemos un pequeño cambio de color para que se vea que ha sido herido
 	modulate = Color(5, 5, 5, 1)
 	# iniciamos un timer para dar un margen entre colisiones al player
 	hit_timer.start()
-
+	can_be_damaged=false
+	
 # Esta funcion se ejecuta de forma remota cuando se crea el player de un cliente
 sync func enable() -> void:
 	hp = 100
