@@ -152,6 +152,9 @@ text = "Winner Winner Chicken Dinner!"
 align = 1
 valign = 1
 script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Win_timer" type="Timer" parent="Game_UI/Control/Winner"]
 wait_time = 2.0
