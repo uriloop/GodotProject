@@ -71,8 +71,12 @@ func _process(delta):
 								free_spawn_points-=1
 							if EnemySpawnPoint4Overlaping>0:
 								free_spawn_points-=1
-							
+							print(str(EnemySpawnPoint1Overlaping))
+							print(str(EnemySpawnPoint2Overlaping))
+							print(str(EnemySpawnPoint3Overlaping))
+							print(str(EnemySpawnPoint4Overlaping))
 							if free_spawn_points>0:
+								
 								rpc("instance_enemy1",get_tree().get_network_unique_id())
 								lista_enemigos_oleada.erase(i)
 								print("spawneamos un nuevo enemigo")
