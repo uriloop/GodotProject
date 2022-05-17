@@ -19,9 +19,6 @@ font_data = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Panel" type="Panel" parent="."]
 anchor_left = 0.5
@@ -58,4 +55,5 @@ custom_fonts/font = SubResource( 2 )
 text = "simple prompt"
 align = 1
 valign = 1
+
 [connection signal="pressed" from="Panel/Ok" to="." method="_on_Ok_pressed"]

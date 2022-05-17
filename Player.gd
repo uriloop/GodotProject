@@ -149,7 +149,7 @@ func puppet_username_set(new_value) -> void:
 func _network_peer_connected(id) -> void:
 	rset_id(id, "puppet_username", username)
 
-# Si hay fallos en la conexión
+# Si hay fallos en la conexión o sincronización
 func _on_Network_tick_rate_timeout():
 	if get_tree().has_network_peer():
 		if is_network_master():
@@ -212,6 +212,7 @@ sync func hit_by_damager(damage):
 	modulate = Color(5, 5, 5, 1)
 	# iniciamos un timer para dar un margen entre colisiones al player
 	hit_timer.start()
+	_update_health_bar()
 
 # Esta funcion se ejecuta de forma remota cuando se crea el player de un cliente
 sync func enable() -> void:
@@ -256,3 +257,5 @@ func _exit_tree() -> void:
 			Global.player_master = null
 
 
+func _update_health_bar():
+	$IU/HealthBar.value = hp
