@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Bullet_texture.png-16d5036bcb8e640d98680e841bc524a3.stex"
+path="res://.import/bar-fill.png-e914feefb7f323a11da78c5bbf4d52ab.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Bullet_texture.png"
-dest_files=[ "res://.import/Bullet_texture.png-16d5036bcb8e640d98680e841bc524a3.stex" ]
+source_file="res://bar-fill.png"
+dest_files=[ "res://.import/bar-fill.png-e914feefb7f323a11da78c5bbf4d52ab.stex" ]
 
 [params]
 
@@ -28,7 +28,6 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
-process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true
