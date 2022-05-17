@@ -51,21 +51,19 @@ position = Vector2( 98, 30 )
 ]]
 shape = SubResource( 1 )
 
-[node name="IU" type="Control" parent="."]
-margin_left = -61.0
-margin_top = -64.0
-margin_right = 88.0
-margin_bottom = 113.0
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HealthBar" type="TextureProgress" parent="IU"]
-margin_left = 4.52632
-margin_top = 137.158
-margin_right = 132.526
-margin_bottom = 173.158
-value = 75.0
+[node name="HealthBar" type="TextureProgress" parent="Control"]
+margin_left = -56.4737
+margin_top = 73.158
+margin_right = 71.5263
+margin_bottom = 109.158
+value = 100.0
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 3 )
 __meta__ = {
