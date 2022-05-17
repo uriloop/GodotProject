@@ -4,18 +4,19 @@
 [ext_resource path="res://enemy.png" type="Texture" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 56.8389
-height = 11.8041
+radius = 34.7148
+height = 28.8923
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 960.3
 
-[sub_resource type="CircleShape2D" id=3]
-radius = 52.0096
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 33.0
+height = 32.0001
 
 [sub_resource type="CapsuleShape2D" id=4]
-radius = 29.9999
-height = 58.0003
+radius = 28.9999
+height = 48.0002
 
 [node name="Enemy1" type="KinematicBody2D" groups=[
 "Enemy",
@@ -24,8 +25,7 @@ rotation = 1.5708
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -6.28506, 6.28505 )
-rotation = 1.5708
+position = Vector2( -28.2851, 5.28514 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -35,25 +35,19 @@ texture = ExtResource( 2 )
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="seekArea"]
+visible = false
 shape = SubResource( 2 )
 
-[node name="HurtBox" type="Area2D" parent="."]
+[node name="hurtAreaBody" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-visible = false
-position = Vector2( -20, 7.00007 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtAreaBody"]
+position = Vector2( -30, 8.00011 )
 shape = SubResource( 3 )
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="hitArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2( 34, 6.99988 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitArea"]
+position = Vector2( 32, 7.99989 )
 shape = SubResource( 4 )
-
-[node name="damage_timer" type="Timer" parent="."]
-wait_time = 2.0
 [connection signal="area_entered" from="seekArea" to="." method="_on_seekArea_area_entered"]
-[connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
-[connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
-[connection signal="area_exited" from="HitBox" to="." method="_on_HitBox_area_exited"]
-[connection signal="timeout" from="damage_timer" to="." method="_on_DamageTimer_timeout"]
+[connection signal="area_entered" from="hurtAreaBody" to="." method="_on_hurtAreaBody_area_entered"]
