@@ -25,10 +25,6 @@ func _ready() -> void:
 	# conectamos el trigger para que ejecute la funcion player disconected cuando se desconecte un cliente
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 
-
-	$enemy_spawn_timer.start() # iniciamos el timer para spawnear enemigos
-	
-	
 	# Si el arbol de nodos actual tiene la conexión como servidor
 
 	if get_tree().is_network_server():
@@ -40,7 +36,7 @@ func _ready() -> void:
 		$Timer_descanso_oleadas.start()
 
 	
-	$enemy_spawn_timer.start()
+
 	
 
 func _process(delta):
