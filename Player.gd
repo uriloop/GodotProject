@@ -9,6 +9,9 @@ var is_reloading = false
 
 var player_bullet = load("res://Player_bullet.tscn")
 var username_text = load("res://Username_text.tscn")
+var healthBar_node = load("res://hpBar.tscn")
+var healthBar_instance =null
+var healthBar setget healtBar_set
 
 var username setget username_set  # Le indicamos que su setter es la funcion usernam_set
 var username_text_instance = null  
@@ -29,6 +32,8 @@ onready var hit_timer = $Hit_timer
 func _ready():
 	# Conectamos una signal/trigger para que se ejecute la función _network_peer_connected() cada vez que se conecte un nuevo player/cliente
 	get_tree().connect("network_peer_connected", self, "_network_peer_connected")
+	
+	
 	
 	# guardamos el objeto player (ya instanciado en Global) en username_text_instance  
 	username_text_instance = Global.instance_node_at_location(username_text, Persistent_nodes, global_position)
@@ -137,6 +142,14 @@ func username_set(new_value) -> void:
 	if get_tree().has_network_peer():
 		if is_network_master() and username_text_instance != null:
 			username_text_instance.text = username
+			rset("puppet_username", username)
+
+func healtBar_set(new_value) -> void:
+	healthBar = new_value
+	
+	if get_tree().has_network_peer():
+		if is_network_master() and healthBar_instance != null:
+			healthBar = hp
 			rset("puppet_username", username)
 
 func puppet_username_set(new_value) -> void:
