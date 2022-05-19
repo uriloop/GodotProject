@@ -16,7 +16,7 @@ var playerWhoHit = null
 onready var damage_timer = $damage_timer
 
 func _ready():
-	calcular_player_mas_cercano
+	calcular_player_mas_cercano()
 
 func _physics_process(delta):
 #	if get_tree().has_network_peer():
@@ -61,19 +61,22 @@ remote func actualizar_playerSeeking(pl):
 
 func calcular_player_mas_cercano():
 	
-	var posicion_referencia = Vector2(2000,2000)
+	var posicion_referencia = null
 	
 	for player in Persistent_nodes.get_children():
 		if player.is_in_group("Player"):
-			if player.position.abs() < posicion_referencia.abs():
+			if posicion_referencia == null:
+				playerSeeking=player
+				posicion_referencia = player.position
+			elif player.position.abs() < posicion_referencia.abs():
 				playerSeeking=player
 				posicion_referencia=player.position
+	rpc('newPlayerSeeking', playerSeeking)
 
-
-#sync func newPlayerSeeking(playerToSeek):
-#	for child in Persistent_nodes.get_children():
-#		if child.name == playerToSeek:
-#			playerSeeking= child
+sync func newPlayerSeeking(playerToSeek):
+	for child in Persistent_nodes.get_children():
+		if child.name == playerToSeek.name:
+			playerSeeking= child
 #
 #func _on_seekArea_area_entered(area):
 #	if get_tree().is_network_server():
