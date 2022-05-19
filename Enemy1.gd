@@ -71,11 +71,11 @@ func calcular_player_mas_cercano():
 			elif player.position.abs() < posicion_referencia.abs():
 				playerSeeking=player
 				posicion_referencia=player.position
-	rpc('newPlayerSeeking', playerSeeking)
+	rpc('newPlayerSeeking', playerSeeking.name)
 
 sync func newPlayerSeeking(playerToSeek):
 	for child in Persistent_nodes.get_children():
-		if child.name == playerToSeek.name:
+		if child.name == playerToSeek:
 			playerSeeking= child
 #
 #func _on_seekArea_area_entered(area):
