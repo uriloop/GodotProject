@@ -55,7 +55,7 @@ remote func actualizar_posicion(pos):
 remote func actualizar_playerSeeking(pl):
 	for p in Persistent_nodes.get_children():
 		if p.is_in_group("Player"):
-			if p.name==pl.name:
+			if p.name==pl:
 				playerSeeking=p
 
 
