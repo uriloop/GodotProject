@@ -65,7 +65,7 @@ func calcular_enemigo_mas_cercano():
 	
 	for player in Persistent_nodes.get_children():
 		if player.is_in_group("Player"):
-			if player.position.abs() < posicion_referencia.abs():
+			if abs(player.position) < abs(posicion_referencia):
 				playerSeeking=player
 				posicion_referencia=player.position
 
