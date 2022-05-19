@@ -67,8 +67,10 @@ func calcular_player_mas_cercano():
 		if player.is_in_group("Player"):
 			if posicion_referencia == null:
 				playerSeeking=player
-				posicion_referencia = player.position
-			elif (self.position - player.position).abs() < (self.position - posicion_referencia).abs():
+#				posicion_referencia = player.position
+#			elif (self.position - player.position).abs() < (self.position - posicion_referencia).abs():
+			elif (self.position.distance_to(player.position)) < (self.position.distance_to(posicion_referencia)):
+			
 				playerSeeking=player
 				posicion_referencia=player.position
 	rpc('newPlayerSeeking', playerSeeking.name)
@@ -77,7 +79,7 @@ sync func newPlayerSeeking(playerToSeek):
 	for child in Persistent_nodes.get_children():
 		if child.name == playerToSeek:
 			playerSeeking= child
-#
+
 #func _on_seekArea_area_entered(area):
 #	if get_tree().is_network_server():
 #		if (area.get_parent().is_in_group('Player') and playerSeeking == null):
