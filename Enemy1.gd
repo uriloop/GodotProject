@@ -28,6 +28,8 @@ func _physics_process(delta):
 			if get_tree().is_network_server():
 				rpc("actualizar_posicion",global_position)
 
+	
+	
 	if playerSeeking:
 		dir = (playerSeeking.global_position - global_position).normalized()
 		velocity= move_and_slide(dir * speed).normalized()
@@ -41,22 +43,36 @@ func _physics_process(delta):
 		playerWhoHit.rpc("hit_by_damager",damage)
 		can_be_damaged = false
 		damage_timer.start()
+		
+	
 
 remote func actualizar_posicion(pos):
 	global_position=pos
 
 
-sync func newPlayerSeeking(playerToSeek):
-	for child in Persistent_nodes.get_children():
-		if child.name == playerToSeek:
-			playerSeeking= child
-
-func _on_seekArea_area_entered(area):
+func calcular_enemigo_mas_cercano():
+	
+	var posicion_referencia = Vector2(2000,2000)
+	
 	if get_tree().is_network_server():
-		if (area.get_parent().is_in_group('Player') and playerSeeking == null):
-			for child in Persistent_nodes.get_children():
-				if child.name == area.get_parent().name:
-					rpc('newPlayerSeeking', child.name)
+		for player in Persistent_nodes.get_children():
+			if player.is_in_group("Player"):
+				if player.position.abs() < posicion_referencia.abs():
+					playerSeeking=player
+					posicion_referencia=player.position
+
+
+#sync func newPlayerSeeking(playerToSeek):
+#	for child in Persistent_nodes.get_children():
+#		if child.name == playerToSeek:
+#			playerSeeking= child
+#
+#func _on_seekArea_area_entered(area):
+#	if get_tree().is_network_server():
+#		if (area.get_parent().is_in_group('Player') and playerSeeking == null):
+#			for child in Persistent_nodes.get_children():
+#				if child.name == area.get_parent().name:
+#					rpc('newPlayerSeeking', child.name)
 
 
 func _on_HurtBox_area_entered(area):
