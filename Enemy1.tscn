@@ -51,7 +51,7 @@ position = Vector2( 34, 6.99988 )
 shape = SubResource( 4 )
 
 [node name="damage_timer" type="Timer" parent="."]
-wait_time = 2.0
+one_shot = true
 [connection signal="area_entered" from="seekArea" to="." method="_on_seekArea_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
 [connection signal="area_entered" from="HitBox" to="." method="_on_HitBox_area_entered"]
