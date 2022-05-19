@@ -79,6 +79,7 @@ func _on_HitBox_area_entered(area):
 	if get_tree().is_network_server():
 		if area.get_parent().is_in_group("Player"):
 			playerWhoHit = area.get_parent()
+			print(playerWhoHit)
 			#area.get_parent().rpc("hit_by_damager",damage)
 
 
@@ -87,6 +88,7 @@ func _on_DamageTimer_timeout():
 
 
 func _on_HitBox_area_exited(area):
+	print(playerWhoHit)
 	playerWhoHit=null
 	damage_timer.stop()
 	
