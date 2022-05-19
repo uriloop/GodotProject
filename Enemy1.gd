@@ -27,8 +27,9 @@ func _physics_process(delta):
 	if get_tree().has_network_peer():
 			if get_tree().is_network_server():
 				rpc("actualizar_posicion",global_position)
-				rpc("actualizar_playerSeeking",playerSeeking.name)
 				calcular_enemigo_mas_cercano()
+				rpc("actualizar_playerSeeking",playerSeeking.name)
+
 
 	
 	
