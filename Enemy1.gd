@@ -27,6 +27,7 @@ func _physics_process(delta):
 	if get_tree().has_network_peer():
 			if get_tree().is_network_server():
 				rpc("actualizar_posicion",global_position)
+				calcular_enemigo_mas_cercano()
 
 	
 	
@@ -54,7 +55,7 @@ func calcular_enemigo_mas_cercano():
 	
 	var posicion_referencia = Vector2(2000,2000)
 	
-	if get_tree().is_network_server():
+	
 		for player in Persistent_nodes.get_children():
 			if player.is_in_group("Player"):
 				if player.position.abs() < posicion_referencia.abs():
