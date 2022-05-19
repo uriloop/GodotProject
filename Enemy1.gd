@@ -55,12 +55,11 @@ func calcular_enemigo_mas_cercano():
 	
 	var posicion_referencia = Vector2(2000,2000)
 	
-	
-		for player in Persistent_nodes.get_children():
-			if player.is_in_group("Player"):
-				if player.position.abs() < posicion_referencia.abs():
-					playerSeeking=player
-					posicion_referencia=player.position
+	for player in Persistent_nodes.get_children():
+		if player.is_in_group("Player"):
+			if player.position.abs() < posicion_referencia.abs():
+				playerSeeking=player
+				posicion_referencia=player.position
 
 
 #sync func newPlayerSeeking(playerToSeek):
