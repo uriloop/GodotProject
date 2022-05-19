@@ -67,9 +67,9 @@ func calcular_player_mas_cercano():
 		if player.is_in_group("Player"):
 			if posicion_referencia == null:
 				playerSeeking=player
-#				posicion_referencia = player.position
+				posicion_referencia = player.position
 #			elif (self.position - player.position).abs() < (self.position - posicion_referencia).abs():
-			elif (self.position.distance_to(player.position.abs())) < (self.position.distance_to(posicion_referencia.abs())):
+			elif (self.position.distance_to(player.position)) < (self.position.distance_to(posicion_referencia)):
 				playerSeeking=player
 				posicion_referencia=player.position
 	rpc('newPlayerSeeking', playerSeeking.name)
