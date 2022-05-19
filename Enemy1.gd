@@ -27,7 +27,7 @@ func _physics_process(delta):
 	if get_tree().has_network_peer():
 			if get_tree().is_network_server():
 				rpc("actualizar_posicion",global_position)
-				rpc("actualizar_playerSeeking",playerSeeking)
+				rpc("actualizar_playerSeeking",playerSeeking.name)
 				calcular_enemigo_mas_cercano()
 
 	
@@ -52,7 +52,10 @@ remote func actualizar_posicion(pos):
 	global_position=pos
 
 remote func actualizar_playerSeeking(pl):
-	playerSeeking=pl
+	for p in Persistent_nodes.get_children():
+		if p.is_in_group("Player"):
+			if p.name==pl.name:
+				playerSeeking=p
 
 
 func calcular_enemigo_mas_cercano():
