@@ -158,5 +158,21 @@ __meta__ = {
 
 [node name="Win_timer" type="Timer" parent="Game_UI/Control/Winner"]
 wait_time = 2.0
+
+[node name="OleadasControl" type="Control" parent="Game_UI"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimerEspera" type="Timer" parent="Game_UI/OleadasControl"]
+
+[node name="LabelOleadas" type="Label" parent="Game_UI/OleadasControl"]
+margin_right = 40.0
+margin_bottom = 14.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="enemy_spawn_timer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="Game_UI/Control/Winner/Win_timer" to="Game_UI/Control/Winner" method="_on_Win_timer_timeout"]
