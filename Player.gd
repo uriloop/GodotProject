@@ -259,4 +259,4 @@ func _exit_tree() -> void:
 
 
 func _update_health_bar():
-	$IU/HealthBar.value = hp
+	$Control/HealthBar.value = hp
