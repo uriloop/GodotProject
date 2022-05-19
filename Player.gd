@@ -35,6 +35,7 @@ func _ready():
 	username_text_instance.player_following = self
 	
 	update_shoot_mode(false)
+	_update_health_bar()
 	# Añadimos el player (self) al array de players en Global
 	Global.alive_players.append(self)
 	
