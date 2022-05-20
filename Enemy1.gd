@@ -40,7 +40,7 @@ func _physics_process(delta):
 
 	if hp <=0:
 		if get_tree().is_network_server():
-			rpc("destroy")
+			rpc("destroy",self.name)
 
 	if playerWhoHit != null and can_be_damaged:
 		playerWhoHit.rpc("hit_by_damager",damage)
@@ -100,8 +100,10 @@ sync func hit_by_damager(damage):
 	# le restamos al hp de este player el damage que corresponde al daño que recibe por parametro y se corresponde con la bala
 	hp -= damage
 
-sync func destroy() -> void:
-	Persistent_nodes.get_node(self.name).queue_free()
+sync func destroy(name) -> void:
+	for e in Persistent_nodes.get_children():
+		if e.name == name:
+			Persistent_nodes.e.queue_free()
 
 func _on_HitBox_area_entered(area):
 	if get_tree().is_network_server():
