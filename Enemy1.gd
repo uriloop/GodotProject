@@ -103,7 +103,7 @@ sync func hit_by_damager(damage):
 sync func destroy(name) -> void:
 	for e in Persistent_nodes.get_children():
 		if e.name == name:
-			Persistent_nodes.e.queue_free()
+			Persistent_nodes.get_child(e).queue_free()
 
 func _on_HitBox_area_entered(area):
 	if get_tree().is_network_server():
