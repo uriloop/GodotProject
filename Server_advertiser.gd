@@ -28,7 +28,7 @@ func broadcast():
 	var packet_message = to_json(server_info)
 	var packet = packet_message.to_ascii()
 	socket_udp.put_packet(packet)
-
+# cuando desconectas
 func _exit_tree():
 	broadcast_timer.stop()
 	if socket_udp != null:

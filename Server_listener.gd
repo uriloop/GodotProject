@@ -19,19 +19,21 @@ func _init():
 
 func _ready():
 	known_servers.clear()
-	
+	# Si no se puede usar el puerto
 	if socket_udp.listen(listen_port) != OK:
 		print("GameServer LAN service: Error listening on port: " + str(listen_port))
 	else:
 		print("GameServer LAN service: Listening on port: " + str(listen_port))
 
 func _process(delta):
+	# Si el paquete actual es mayor que 0
 	if socket_udp.get_available_packet_count() > 0:
 		var server_ip = socket_udp.get_packet_ip()
 		var server_port = socket_udp.get_packet_port()
 		var array_bytes = socket_udp.get_packet()
-		
+		# Si server ip no es nulo y el puerto es mayor que 0
 		if server_ip != '' and server_port > 0:
+			# Si no hay un servidor con esa ip
 			if not known_servers.has(server_ip):
 				var serverMessage = array_bytes.get_string_from_ascii()
 				var gameInfo = parse_json(serverMessage)
@@ -45,6 +47,7 @@ func _process(delta):
 				gameInfo.lastSeen = OS.get_unix_time()
 
 func clean_up():
+	# El tiempo actual en segundos
 	var now = OS.get_unix_time()
 	for server_ip in known_servers:
 		var serverInfo = known_servers[server_ip]
@@ -52,7 +55,7 @@ func clean_up():
 			known_servers.erase(server_ip)
 			print('Remove old server: %s' % server_ip)
 			emit_signal("remove_server", server_ip)
-
+# cuando te desconectas
 func _exit_tree():
 	socket_udp.close()
 

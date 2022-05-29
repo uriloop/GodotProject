@@ -106,18 +106,19 @@ func _process(delta: float) -> void:
 # Este metodo lo hemos sobreescrito
 func lerp_angle(from, to, weight):
 	return from + short_angle_dist(from, to) * weight
-
+# Calcular el angulo
 func short_angle_dist(from, to):
 	var max_angle = PI * 2
 	var difference = fmod(to - from, max_angle)
 	return fmod(2 * difference, max_angle) - difference
-
+# Asignar la posicion de puppet
 func puppet_position_set(new_value) -> void:
 	puppet_position = new_value
 	
 	tween.interpolate_property(self, "global_position", global_position, puppet_position, 0.1)
 	tween.start()
 
+# Asignar la vida
 func set_hp(new_value):
 	hp = new_value
 	
@@ -125,13 +126,14 @@ func set_hp(new_value):
 		if is_network_master():
 			rset("puppet_hp", hp)
 
+# Asignar la vida de puppet
 func puppet_hp_set(new_value):
 	puppet_hp = new_value
 	
 	if get_tree().has_network_peer():
 		if not is_network_master():
 			hp = puppet_hp
-
+# Asignar el username
 func username_set(new_value) -> void:
 	username = new_value
 	
@@ -139,14 +141,14 @@ func username_set(new_value) -> void:
 		if is_network_master() and username_text_instance != null:
 			username_text_instance.text = username
 			rset("puppet_username", username)
-
+# Asignar el username de puppet
 func puppet_username_set(new_value) -> void:
 	puppet_username = new_value
 	
 	if get_tree().has_network_peer():
 		if not is_network_master() and username_text_instance != null:
 			username_text_instance.text = puppet_username
-
+# Si ha hay conexion
 func _network_peer_connected(id) -> void:
 	rset_id(id, "puppet_username", username)
 

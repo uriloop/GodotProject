@@ -54,21 +54,25 @@ func create_server() -> void:
 	get_tree().set_network_peer(server)
 	Global.instance_node(load("res://Server_advertiser.tscn"), get_tree().current_scene)
 
+# entramos a un servidor(partida) creado/a
 func join_server() -> void:
 	client = NetworkedMultiplayerENet.new()
 	client.create_client(ip_address, DEFAULT_PORT)
 	get_tree().set_network_peer(client)
-	client_connection_timeout_timer.start()  # Esto es 
+	client_connection_timeout_timer.start()  # Esto es el timer de inactividad.
 
+# para resetear la conexion
 func reset_network_connection() -> void:
 	if get_tree().has_network_peer():
 		get_tree().network_peer = null
 
+# para imprimir el mensaje de que esta conectado correctamente
 func _connected_to_server() -> void:
 	print("Successfully connected to the server")
 	
 	client_connected_to_server = true
 
+# para cuando el servidor esta desconectado, que hechamos a todos los clientes que estan en el server
 func _server_disconnected() -> void:
 	print("Disconnected from the server")
 	
@@ -82,6 +86,7 @@ func _server_disconnected() -> void:
 		var prompt = Global.instance_node(load("res://Simple_prompt.tscn"), Global.ui)
 		prompt.set_text("Disconnected from server")
 
+# cuando tarda mucho tiempo sin poner conectar al servidor
 func _client_connection_timeout():
 	if client_connected_to_server == false:
 		print("Client has been timed out")
@@ -91,6 +96,7 @@ func _client_connection_timeout():
 		var connection_timeout_prompt = Global.instance_node(load("res://Simple_prompt.tscn"), get_tree().current_scene)
 		connection_timeout_prompt.set_text("Connection timed out")
 
+# cuando la conexion ha fallado
 func _connection_failed():
 	for child in Persistent_nodes.get_children():
 		if child.is_in_group("Net"):
@@ -101,6 +107,7 @@ func _connection_failed():
 	if Global.ui != null:
 		var prompt = Global.instance_node(load("res://Simple_prompt.tscn"), Global.ui)
 		prompt.set_text("Connection failed")
+
 
 func puppet_networked_object_name_index_set(new_value):
 	networked_object_name_index = new_value

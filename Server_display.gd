@@ -1,7 +1,7 @@
 extends Label
 
 var ip_address = ""
-
+# cuando pulsamos el botton join
 func _on_Join_button_pressed():
 	Network.ip_address = ip_address
 	Network.join_server()

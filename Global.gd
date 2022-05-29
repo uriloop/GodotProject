@@ -12,6 +12,7 @@ func instance_node_at_location(node: Object, parent: Object, location: Vector2) 
 	node_instance.global_position = location
 	return node_instance
 
+# Esta funcio utilizado para instanciar nodos y lo añade dentro de parent en este caso es el Persistent node
 func instance_node(node: Object, parent: Object) -> Object:
 	var node_instance = node.instance()
 	parent.add_child(node_instance)

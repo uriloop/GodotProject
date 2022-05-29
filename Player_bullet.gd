@@ -17,7 +17,7 @@ var player_owner = 0
 func _ready() -> void:
 	visible = false
 	yield(get_tree(), "idle_frame")
-	
+	# Si hay conexion y es el master, asignamos valores al puppet
 	if get_tree().has_network_peer():
 		if is_network_master():
 			velocity = velocity.rotated(player_rotation)
@@ -29,6 +29,7 @@ func _ready() -> void:
 	visible = true
 
 func _process(delta: float) -> void:
+	# Si hay conexion y es el master, asignams el global_position
 	if get_tree().has_network_peer():
 		if is_network_master():
 			global_position += velocity * speed * delta
@@ -36,19 +37,20 @@ func _process(delta: float) -> void:
 			rotation = puppet_rotation
 			global_position += puppet_velocity * speed * delta
 
+# Asignar position del puppet
 func puppet_position_set(new_value) -> void:
 	puppet_position = new_value
 	global_position = puppet_position
-
+# Para destruir la bala
 sync func destroy() -> void:
 	queue_free()
-
+# cuando el timer se acaba llama al metodo destroy
 func _on_Destroy_timer_timeout():
 	if get_tree().has_network_peer():
 		if get_tree().is_network_server():
 			rpc("destroy")
 
-
+# Si la area que ha entrado es un enemigo llama al metodo destroy
 func _on_Hitbox_area_entered(area):
 	if area.is_in_group("Enemy"):
 		rpc("destroy")

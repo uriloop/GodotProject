@@ -7,12 +7,12 @@ onready var manual_setup_button = $Background_panel/Manual_setup
 
 func _ready() -> void:
 	server_ip_text_edit.hide()
-
+# cuando hay un nuevo servidor
 func _on_Server_listener_new_server(serverInfo):
 	var server_node = Global.instance_node(load("res://Server_display.tscn"), server_container)
 	server_node.text = "%s - %s" % [serverInfo.ip, serverInfo.name]
 	server_node.ip_address = str(serverInfo.ip)
-
+# Para borrar un servidor(partida)
 func _on_Server_listener_remove_server(serverIp):
 	for serverNode in server_container.get_children():
 		if serverNode.is_in_group("Server_display"):
@@ -33,11 +33,11 @@ func _on_Manual_setup_pressed():
 		server_ip_text_edit.hide()
 		manual_setup_button.text = "manual setup"
 		server_container.show()
-
+# cuando pulsamos el boton join
 func _on_Join_server_pressed():
 	Network.ip_address = server_ip_text_edit.text
 	hide()
 	Network.join_server()
-
+# cuando pulsamos el boton back
 func _on_Go_back_pressed():
 	get_tree().reload_current_scene()
