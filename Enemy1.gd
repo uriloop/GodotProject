@@ -112,6 +112,7 @@ sync func destroy(name) -> void:
 	for e in Persistent_nodes.get_children():
 		if e.name == name:
 			Persistent_nodes.get_node(e.name).queue_free()
+			self.queue_free()
 
 func _on_HitBox_area_entered(area):
 	# Si eres servidor

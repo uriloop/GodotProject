@@ -162,10 +162,10 @@ margin_left = -87.8387
 margin_top = -1108.41
 margin_right = -87.8386
 margin_bottom = -1015.41
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 6
 custom_constants/shadow_offset_y = 6
-custom_fonts/font = SubResource( 3 )
 text = "Winner Winner Chicken Dinner!"
 align = 1
 valign = 1
@@ -173,6 +173,5 @@ script = ExtResource( 5 )
 
 [node name="Win_timer" type="Timer" parent="Game_UI/Control/Winner"]
 wait_time = 2.0
-
 [connection signal="timeout" from="enemy_spawn_timer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="Game_UI/Control/Winner/Win_timer" to="Game_UI/Control/Winner" method="_on_Win_timer_timeout"]
